@@ -24,7 +24,6 @@ function saveData(data) {
   fs.writeFileSync("data.json", JSON.stringify(data));
 }
 
-
 //Add todos
 yargs.command({
   command: "add",
@@ -69,18 +68,22 @@ yargs.command({
   handler: function ({ completed }) {
     const todos = loadData();
     let results;
-    let color = "blue"
+    let color = "blue";
     if (completed === "true") {
-      color = "green"
+      color = "green";
       results = todos.filter((e) => e.completed === true);
     } else if (completed === "false") {
-      color = "red"
+      color = "red";
       results = todos.filter((e) => e.completed === false);
     } else {
       results = todos;
     }
     results.forEach((e, index) =>
-      console.log(chalk[color](`id: ${e.id}, todo: ${e.todo} \n completed: ${e.completed}`))
+      console.log(
+        chalk[color](
+          `id: ${e.id}, todo: ${e.todo} \n completed: ${e.completed}`
+        )
+      )
     );
   },
 });
@@ -128,7 +131,7 @@ yargs.command({
   },
 });
 
-//Exchange status
+//Exchange status one
 yargs.command({
   command: "toggle",
   describe: "complete status",
@@ -145,6 +148,21 @@ yargs.command({
       if (e.id === args.id) {
         e.completed = !e.completed;
       }
+      return e;
+    });
+    saveData(results);
+    console.log(chalk.yellowBright.bold("Done"));
+  },
+});
+
+//Exchange status all items (toggle_all)
+yargs.command({
+  command: "toggle_all",
+  describe: "complete status all",
+  handler: function (args) {
+    const todos = loadData();
+    const results = todos.map((e) => {
+      e.completed = "true";
       return e;
     });
     saveData(results);
