@@ -2,10 +2,8 @@ const fs = require("fs");
 const yargs = require("yargs");
 const chalk = require("chalk");
 
-// console.log(chalk.blue("Hello world!"));
-// console.log(chalk.red("Hello world!"));
-// console.log(chalk.green("Hello world!"));
-// console.log(chalk.red.bold("Hello world!"));
+
+console.log(chalk.red.bold("Todo List"));
 
 function loadData() {
   try {
