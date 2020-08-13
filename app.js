@@ -51,7 +51,8 @@ yargs.command({
   },
 });
 
-//todos list
+//Todos list
+//Change color
 yargs.command({
   command: "list",
   describe: "",
