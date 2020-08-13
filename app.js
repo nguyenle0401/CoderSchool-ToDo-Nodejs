@@ -2,7 +2,6 @@ const fs = require("fs");
 const yargs = require("yargs");
 const chalk = require("chalk");
 
-
 console.log(chalk.red.bold("Todo List"));
 
 function loadData() {
@@ -106,7 +105,7 @@ yargs.command({
   },
 });
 
-//Delete all
+//Delete all todos (1)
 yargs.command({
   command: "delete_all",
   describe: "delete all todos",
@@ -117,6 +116,31 @@ yargs.command({
   },
 });
 
+//Delete all todos (2)
+// yargs.command({
+//   command: "delete_all_2",
+//   describe: "delete all todos",
+//   builder: {
+//     all: {
+//       describe: "",
+//       type: "boolean",
+//       default: false,
+//     },
+//     id: {
+//       describe: "",
+//       type: "number",
+//     },
+//   },
+
+//   handler: function ({ id, all }) {
+//     if (all) {
+//       console.log(chalk.redBright("Deleting all todos"));
+//     } else if (id) {
+//       console.log(chalk.redBright("Deleting todo with ID"));
+//     }
+//   },
+// });
+
 //Delete all completed
 yargs.command({
   command: "delete_all_completed",
@@ -126,7 +150,7 @@ yargs.command({
     const todos = loadData();
     const results = todos.filter((e) => (e.completed = "false"));
     saveData(results);
-    console.log(chalk.yellowBright.bold("Done"));
+    console.log(chalk.yellowBright.bold("Delete all todos"));
   },
 });
 
@@ -143,9 +167,9 @@ yargs.command({
   },
   handler: function ({ id }) {
     const todos = loadData();
-    const found = todos.findIndex(e => e.id === id);
-    if ( found !== -1){
-      todos[found].completed = !todos[found].completed
+    const found = todos.findIndex((e) => e.id === id);
+    if (found !== -1) {
+      todos[found].completed = !todos[found].completed;
     }
     saveData(todos);
     console.log(chalk.yellowBright.bold("Done"));
