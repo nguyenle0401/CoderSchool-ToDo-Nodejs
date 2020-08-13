@@ -141,15 +141,13 @@ yargs.command({
       type: "number",
     },
   },
-  handler: function (args) {
+  handler: function ({ id }) {
     const todos = loadData();
-    const results = todos.map((e) => {
-      if (e.id === args.id) {
-        e.completed = !e.completed;
-      }
-      return e;
-    });
-    saveData(results);
+    const found = todos.findIndex(e => e.id === id);
+    if ( found !== -1){
+      todos[found].completed = !todos[found].completed
+    }
+    saveData(todos);
     console.log(chalk.yellowBright.bold("Done"));
   },
 });
